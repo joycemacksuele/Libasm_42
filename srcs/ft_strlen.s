@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreitas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 00:53:46 by jfreitas          #+#    #+#              #
-#    Updated: 2021/01/20 19:42:13 by user42           ###   ########.fr        #
+#    Updated: 2021/01/20 23:14:52 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ section .text
 	global ft_strlen			; Defining global Label
 
 ft_strlen:
-	xor rcx, rcx				; Changes rcx operand (count/len) to zero
+	xor rcx, rcx				; Changes rcx operand (count/len/index) to 0
 								; Same as mov rcx, 0 (but faster))
 
 loop:

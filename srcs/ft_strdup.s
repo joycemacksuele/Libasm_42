@@ -1,28 +1,26 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    ft_strcmp.s                                        :+:      :+:    :+:    #
+#    ft_strdup.s                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: jfreitas <jfreitas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 00:53:22 by jfreitas          #+#    #+#              #
-#    Updated: 2021/01/20 23:25:01 by user42           ###   ########.fr        #
+#    Updated: 2021/01/20 23:36:51 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-; int	ft_strcmp(const char *s1, const char *s2);
+; char	*ft_strdup(const char *s);
 ;
-; rdi = s1
-; rsi = s2
-; rdx = to store variable s1
-; r8 = to store variable s2
+; rdi = s
+; rdx = to store variable s
 ; rcx = counter/len/index for loop
 ; rax = return value (not changinf it for safety)
 ; BYTE[ptr] is a char/8bits/1byte access memory, so, use an 8bits register
 section .text
-	global ft_strcmp			; Defining global Label
+	global ft_strdup			; Defining global Label
 
-ft_strcmp:
+ft_strdup:
 	xor rcx, rcx				; Changes rcx operand (count/leni/index) to 0
 								; Same as mov rcx, 0 (but faster)
 	xor rdx, rdx				; Changes rdx to 0

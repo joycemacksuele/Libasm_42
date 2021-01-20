@@ -6,7 +6,7 @@
 #    By: user42 <jfreitas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/18 16:15:55 by user42            #+#    #+#              #
-#    Updated: 2021/01/20 00:34:53 by user42           ###   ########.fr        #
+#    Updated: 2021/01/20 01:09:32 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,6 @@ clean:
 	@echo "\033[0;32m"
 	rm -rf ./objs
 	rm -f a.out
-	rm ./srcs/*.o
 	@echo "\033[0m"
 
 fclean: clean
@@ -66,6 +65,7 @@ fclean: clean
 	@echo "\033[0;32m"
 	rm -f $(NAME)
 	@echo "\033[0m"
+	rm ./srcs/*.o
 
 re: fclean all
 

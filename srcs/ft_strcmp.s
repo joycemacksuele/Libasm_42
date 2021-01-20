@@ -1,26 +1,26 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    ft_strcpy.s                                        :+:      :+:    :+:    #
+#    ft_strcmp.s                                        :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
 #    By: jfreitas <jfreitas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 00:53:22 by jfreitas          #+#    #+#              #
-#    Updated: 2021/01/20 19:41:00 by user42           ###   ########.fr        #
+#    Updated: 2021/01/20 19:51:17 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-; char	*ft_strcpy(char *dest, const char *src);
+; int	ft_strcmp(const char *s1, const char *s2);
 ;
-; rdi = dest
-; rsi = src
+; rdi = s1
+; rsi = s2
 ; r8 = to store variable
 ; rcx = counter/len/index for loop
 ; rax = return value (not changinf it for safety)
 section .text
-	global ft_strcpy			; Defining global Label
+	global ft_strcmp			; Defining global Label
 
-ft_strcpy:
+ft_strcmp:
 	xor rcx, rcx				; Changes rcx operand (count/len) to zero
 								; Same as mov rcx, 0 (but faster)
 

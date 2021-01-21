@@ -1,14 +1,14 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    ft_strdup.s                                        :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: jfreitas <jfreitas@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/01/20 00:53:22 by jfreitas          #+#    #+#              #
-#    Updated: 2021/01/21 18:58:12 by user42           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+; **************************************************************************** ;
+;                                                                              ;
+;                                                         :::      ::::::::    ;
+;    ft_strdup.s                                        :+:      :+:    :+:    ;
+;                                                     +:+ +:+         +:+      ;
+;    By: jfreitas <jfreitas@student.42.fr>          +#+  +:+       +#+         ;
+;                                                 +#+#+#+#+#+   +#+            ;
+;    Created: 2021/01/20 00:53:22 by jfreitas          #+#    #+#              ;
+;    Updated: 2021/01/21 18:58:12 by user42           ###   ########.fr        ;
+;                                                                              ;
+; **************************************************************************** ;
 
 ; char	*ft_strdup(const char *s);
 ;
@@ -18,9 +18,9 @@
 ; "When the contents of a segment register is pushed onto 64-bit stack, the pointer is automatically aligned to 64 bits (as with a stack that has a 32- bit width)."
 section .text
 	global ft_strdup			; Defining global Label
-	extern ft_strlen			; size_t	ft_strlen(const char *s);
-	extern ft_strcpy			; char	*ft_strcpy(char *dest, const char *src);
-	extern malloc				;  void *malloc(size_t size);
+	extern ft_strlen			; size_t ft_strlen(const char *s);
+	extern ft_strcpy			; char ft_strcpy(char *dest, const char *src);
+	extern malloc				; void *malloc(size_t size);
 
 ft_strdup:
 	push rdi					; Store rdi/s (aligning to 64bits on the stack)

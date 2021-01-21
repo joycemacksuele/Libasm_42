@@ -6,7 +6,7 @@
 /*   By: user42 <jfreitas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 16:25:36 by user42            #+#    #+#             */
-/*   Updated: 2021/01/21 18:52:36 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/21 23:48:40 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,24 +58,36 @@ int main(int ac, char **av)
 		free(ft_dup);
 		free(dup);
 	}
-//	else if (ac == 3 && strcmp(av[1], "write") == 0)
-/*	else if (ac == 3 && ft_strcmp(av[1], "write") == 0)
+//	else if (ac == 4 && strcmp(av[1], "write") == 0)
+	else if (ac == 3 && ft_strcmp(av[1], "write") == 0)
 	{
-		int res;
+		int		ft_fd;
+		int		fd;
+		size_t	av2_len;
+		ssize_t	ft_ret;
+		ssize_t	ret;
 
-		//res = ft_write(1, av[2], *av[3]);
-		printf("\nreturn = |%d| \033[1;32mft_write\033[0m(1, %s, %s) = |^|\n\n", res, av[2], av[3]);
+		ft_fd = open("ft_write_example.txt", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		av2_len = ft_strlen(av[2]);
+		ft_ret = ft_write(ft_fd, av[2], av2_len);
+		printf("\nerrno: %d\n", errno);
+		printf("\n\033[1;32mft_write\033[0m(%d, \"%s\", %zu) = %zu (number of bytes written)\n", ft_fd, av[2], av2_len, ft_ret);
+		printf("\033[2;37mopen ft_write_example.txt to see that \"%s\" was written there\n\n\033[0m", av[2]);
+		close(ft_fd);
 
-		res = write(1, av[2], *av[3]);
-		printf("\nreturn = |%d|    \033[1;32mwrite\033[0m(1, %s, %s) = |^|\n\n", res, av[2], av[3]);
+		fd = open("write_example.txt", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
+		ret = write(fd, av[2], av2_len);
+		printf("   \033[1;32mwrite\033[0m(%d, \"%s\", %zu) = %zu (number of bytes written)\n", fd, av[2], av2_len, ret);
+		printf("\033[2;37mopen write_example.txt to see that \"%s\" was written there\n\n\033[0m", av[2]);
+		close(fd);
 	}
-//	else if (ac == 3 && strcmp(av[1], "read") == 0)
-	else if (ac == 3 && ft_strcmp(av[1], "read") == 0)
+//	else if (ac == 4 && strcmp(av[1], "read") == 0)
+/*	else if (ac == 4 && ft_strcmp(av[1], "read") == 0)
 	{
-		char ft_buff[11];
-		char buff[11];
-		int fd;
-		int d;
+		char	ft_buff[11];
+		char	buff[11];
+		int		fd;
+		ssize_t	d;
 
 		fd = open(av[2], O_RDONLY);
 		//d = ft_read(fd, ft_buff, 10);
@@ -101,7 +113,7 @@ int main(int ac, char **av)
 		// ft_strdup(const char *s);
 		printf("       ./libasm \033[32m strdup \033[37m   [string]\n");
 		// ft_write(int fd, const void *buf, size_t count);
-		printf("       ./libasm \033[32m write \033[37m    [buffer]        [length]\n");
+		printf("       ./libasm \033[32m write \033[37m    [buffer]\n");
 		// ft_read(int fd, void *buf, size_t count);
 		printf("       ./libasm \033[32m read \033[37m     [buffer]        [length]\n\n");
 	}

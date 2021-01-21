@@ -6,7 +6,7 @@
 /*   By: user42 <jfreitas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 16:59:17 by user42            #+#    #+#             */
-/*   Updated: 2021/01/19 21:02:47 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/21 21:56:29 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdio.h>
 # include <fcntl.h>
 # include <errno.h>
-
+# include <linux/errno.h>
 
 /*int		ft_strlen(char const *str);*/
 size_t	ft_strlen(const char *s);
@@ -39,6 +39,5 @@ ssize_t	ft_write(int fd, const void *buf, size_t count);
 
 /*ssize_t	ft_read(int fd, void *buf, size_t nbyte);*/
 ssize_t	ft_read(int fd, void *buf, size_t count);
-
 
 #endif

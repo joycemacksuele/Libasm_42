@@ -6,7 +6,7 @@
 #    By: user42 <jfreitas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/18 16:15:55 by user42            #+#    #+#              #
-#    Updated: 2021/01/21 15:25:52 by user42           ###   ########.fr        #
+#    Updated: 2021/01/21 23:32:21 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRCS = 	srcs/ft_strlen.s \
 		srcs/ft_strcpy.s \
 		srcs/ft_strcmp.s \
 		srcs/ft_strdup.s \
-#		srcs/ft_write.s \
+		srcs/ft_write.s \
 #		srcs/ft_read.s
 
 #OBJS = $(subst .s,.o,$(SRCS))
@@ -54,6 +54,8 @@ clean:
 	@echo "\033[0;32m"
 	rm -rf ./objs
 	rm -f a.out
+	@rm -f write_example.txt
+	@rm -f ft_write_example.txt
 	@echo "\033[0m"
 
 fclean: clean

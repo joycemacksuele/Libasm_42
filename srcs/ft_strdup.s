@@ -6,39 +6,37 @@
 #    By: jfreitas <jfreitas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 00:53:22 by jfreitas          #+#    #+#              #
-#    Updated: 2021/01/20 23:36:51 by user42           ###   ########.fr        #
+#    Updated: 2021/01/21 18:58:12 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ; char	*ft_strdup(const char *s);
 ;
 ; rdi = s
-; rdx = to store variable s
-; rcx = counter/len/index for loop
-; rax = return value (not changinf it for safety)
-; BYTE[ptr] is a char/8bits/1byte access memory, so, use an 8bits register
+; rax = return value (not changing it for safety)
+; malloc()functions returns a pointer to the allocated memory
+; "When the contents of a segment register is pushed onto 64-bit stack, the pointer is automatically aligned to 64 bits (as with a stack that has a 32- bit width)."
 section .text
 	global ft_strdup			; Defining global Label
+	extern ft_strlen			; size_t	ft_strlen(const char *s);
+	extern ft_strcpy			; char	*ft_strcpy(char *dest, const char *src);
+	extern malloc				;  void *malloc(size_t size);
 
 ft_strdup:
-	xor rcx, rcx				; Changes rcx operand (count/leni/index) to 0
-								; Same as mov rcx, 0 (but faster)
-	xor rdx, rdx				; Changes rdx to 0
-	xor r8, r8					; Changes r8 to 0
+	push rdi					; Store rdi/s (aligning to 64bits on the stack)
+	call ft_strlen				; Func's arg is rid/s. Re turn's stored in rax
+	inc rax						; rax (length) + 1 (for NULL termination)
+	mov rdi, rax				; Move rax/length back to rdi/s to call malloc
+	call malloc					; Call malloc with rdi/s as it's arg
+; After malloc: original string is on stack, newly allocated string is in rax
+	cmp rax, 0x00				; Check if malloc returned NULL or rdi was 0
+	je exit_err					; Jump to exit_err if rax == 0
+	mov rdi, rax				; Move return of malloc (ptr to address) to rdi
+	pop rsi						; Restoring rsi to be the second arg of strcpy
+	call ft_strcpy				; Call strcpy with ret of malloc and rsi as args
+	ret							; return rax (ret of strcpy - ptr to dest)
 
-loop:
-	mov dl, BYTE[rdi + rcx]		; Move src/rdi + index/rcx to rdx (dl in 8bits)
-	mov r8b, BYTE[rsi + rcx]	; Move src/rdi + index/rcx to rd8 (r8b in 8bits)
-	cmp dl, 0					; Compare 0 to rdx (dl in 8bits)
-	je exit						; If equal, exit
-	cmp r8b, 0					; Compare 0 to rsi
-	je exit						; If equal, exit
-	cmp dl, r8b					; Compare r8 (r8b in 8bits) to rdx (dl in 8bits)
-	jne exit					; Jump to exit if NOT equal (r8b != dl)
-	inc rcx						; Incrementing rcx/index
-	call loop					; Calling itself
-
-exit:
-	mov rax, rdx				; Moving rdx/s1 to rax (the return register)
-	sub rax, r8					; s2/r8 - s1/rax
-	ret
+exit_err:
+	mov rax, 0					; Don't forget to return NULL (move 0 to rax),
+	pop rdi						; and pop what have been pushed at the beginning
+	ret							; to not corrupt the stack

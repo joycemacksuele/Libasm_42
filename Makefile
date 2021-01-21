@@ -6,7 +6,7 @@
 #    By: user42 <jfreitas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/18 16:15:55 by user42            #+#    #+#              #
-#    Updated: 2021/01/20 22:12:51 by user42           ###   ########.fr        #
+#    Updated: 2021/01/21 15:25:52 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIB_NAME = libasm.a
 SRCS = 	srcs/ft_strlen.s \
 		srcs/ft_strcpy.s \
 		srcs/ft_strcmp.s \
-#		srcs/ft_strdup.s \
+		srcs/ft_strdup.s \
 #		srcs/ft_write.s \
 #		srcs/ft_read.s
 
@@ -32,7 +32,7 @@ OBJS = ${SRCS:%.s=%.o}
 
 all: $(NAME)
 	@mkdir objs
-	@mv srcs/*.o objs/
+	@mv ./srcs/*.o ./objs/
 
 %.o:%.s
 	@echo -n "\n\033[1;33mAssembling..."

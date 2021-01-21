@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreitas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 00:53:22 by jfreitas          #+#    #+#              #
-#    Updated: 2021/01/20 23:16:34 by user42           ###   ########.fr        #
+#    Updated: 2021/01/21 18:59:34 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@
 ; rsi = src
 ; rdx = to store and move the rsi/src variable
 ; rcx = counter/len/index for loop
-; rax = return value (not changinf it for safety)
+; rax = return value (not changing it for safety)
 section .text
 	global ft_strcpy			; Defining global Label
 
@@ -31,7 +31,7 @@ loop:
 	mov rdx, [rsi + rcx]		; Move src/rsi + index/rcx to rdx
 	mov [rdi + rcx], rdx		; Move rdx to the dest/rdi + index/rcx
 	inc rcx						; Incrementing rcx/index
-	call loop					; Calling itself
+	jmp loop					; Calling itself
 
 exit:
 	mov BYTE[rdi + rcx], 0		; Moving 0 to the last index/rcx of dest/rdi

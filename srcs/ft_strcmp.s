@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreitas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 00:53:22 by jfreitas          #+#    #+#              #
-#    Updated: 2021/01/20 23:25:01 by user42           ###   ########.fr        #
+#    Updated: 2021/01/21 18:59:21 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 ; rdx = to store variable s1
 ; r8 = to store variable s2
 ; rcx = counter/len/index for loop
-; rax = return value (not changinf it for safety)
+; rax = return value (not changing it for safety)
 ; BYTE[ptr] is a char/8bits/1byte access memory, so, use an 8bits register
 section .text
 	global ft_strcmp			; Defining global Label
@@ -38,7 +38,7 @@ loop:
 	cmp dl, r8b					; Compare r8 (r8b in 8bits) to rdx (dl in 8bits)
 	jne exit					; Jump to exit if NOT equal (r8b != dl)
 	inc rcx						; Incrementing rcx/index
-	call loop					; Calling itself
+	jmp loop					; Calling itself
 
 exit:
 	mov rax, rdx				; Moving rdx/s1 to rax (the return register)

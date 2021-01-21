@@ -6,7 +6,7 @@
 #    By: jfreitas <jfreitas@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 00:53:46 by jfreitas          #+#    #+#              #
-#    Updated: 2021/01/20 23:14:52 by user42           ###   ########.fr        #
+#    Updated: 2021/01/21 18:59:54 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 ;
 ; rdi = s
 ; rcx = counter/len/index for loop
-; rax = return value (not changinf it for safety)
+; rax = return value (not changing it for safety)
 section .text
 	global ft_strlen			; Defining global Label
 
@@ -26,7 +26,7 @@ loop:
 	cmp BYTE[rdi + rcx], 0		; Compare 0 to char ptr [src/rdi + index/rcx]
 	je exit						; Jump to the exit function, if cmp is equal
 	inc rcx						; Incrementing rcx (the counter)
-	call loop					; Calling itself
+	jmp loop					; Calling itself
 
 exit:
 	mov rax, rcx				; Moving len/rcx to rax (the return register)

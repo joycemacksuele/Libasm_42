@@ -6,7 +6,7 @@
 /*   By: user42 <jfreitas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 16:25:36 by user42            #+#    #+#             */
-/*   Updated: 2021/01/21 23:48:40 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/23 00:01:13 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,39 +66,79 @@ int main(int ac, char **av)
 		size_t	av2_len;
 		ssize_t	ft_ret;
 		ssize_t	ret;
+		char	buf[1000];
 
-		ft_fd = open("ft_write_example.txt", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		av2_len = ft_strlen(av[2]);
+		printf("\n------------------- fd = open() ------------------");
+		//open() will return a fd >= 3 and write will write to a file
+		ft_fd = open("ft_write_example.txt", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		ft_ret = ft_write(ft_fd, av[2], av2_len);
-		printf("\nerrno: %d\n", errno);
-		printf("\n\033[1;32mft_write\033[0m(%d, \"%s\", %zu) = %zu (number of bytes written)\n", ft_fd, av[2], av2_len, ft_ret);
+		if (&__errno_location)
+			printf("\033[2;37m\nerrno: %d|%s\033[0m", errno, strerror(errno));
+		printf(" -> \033[1;32mft_write\033[0m(%d, \"%s\", %zu) = %zu (number of bytes written)\n", ft_fd, av[2], av2_len, ft_ret);
 		printf("\033[2;37mopen ft_write_example.txt to see that \"%s\" was written there\n\n\033[0m", av[2]);
 		close(ft_fd);
 
 		fd = open("write_example.txt", O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		ret = write(fd, av[2], av2_len);
-		printf("   \033[1;32mwrite\033[0m(%d, \"%s\", %zu) = %zu (number of bytes written)\n", fd, av[2], av2_len, ret);
-		printf("\033[2;37mopen write_example.txt to see that \"%s\" was written there\n\n\033[0m", av[2]);
+		if (&__errno_location)
+			printf("\033[2;37merrno: %d|%s\033[0m", errno, strerror(errno));
+		printf(" ->    \033[1;32mwrite\033[0m(%d, \"%s\", %zu) = %zu (number of bytes written)\n", fd, av[2], av2_len, ret);
+
+		printf("\033[2;37mopen write_example.txt to see that \"%s\" was written there\n\033[0m", av[2]);
 		close(fd);
+
+		//printf("\n---------------------- fd = 0 --------------------");
+		//fd0 = stdin which is not a fd open for writing.
+
+		//printf("\n---------------------- fd = 2 --------------------");
+		//fd2 = stderr and write will write to the standard error
+
+		printf("\n---------------------- fd = 1 --------------------");
+		//fd1 = stdout and write will write on the standard output (on terminal)
+		printf("\ninput a string to be written to the stdout fd: ");
+		scanf("%[^\n]", buf);
+		av2_len = ft_strlen(buf);
+		ft_ret = ft_write(1, buf, av2_len);
+		if (&__errno_location)
+			printf("\033[2;37m\nerrno: %d|%s\033[0m", errno, strerror(errno));
+		printf(" -> \033[1;32mft_write\033[0m(%d, \"%s\", %zu) = %zu (number of bytes written)\n\n", 1, buf, av2_len, ft_ret);
+
+		ret = write(1, buf, av2_len);
+		if (&__errno_location)
+			printf("\033[2;37m\nerrno: %d|%s\033[0m", errno, strerror(errno));
+		printf(" ->    \033[1;32mwrite\033[0m(%d, \"%s\", %zu) = %zu (number of bytes written)\n", 1, buf, av2_len, ret);
+
 	}
 //	else if (ac == 4 && strcmp(av[1], "read") == 0)
-/*	else if (ac == 4 && ft_strcmp(av[1], "read") == 0)
+	else if (ac == 3 && ft_strcmp(av[1], "read") == 0)
 	{
-		char	ft_buff[11];
-		char	buff[11];
+		int		ft_fd;
 		int		fd;
-		ssize_t	d;
+		int		atoi_av2;
+		ssize_t	ft_ret;
+		ssize_t	ret;
+		char	ft_buf[100];
+		char	buf[100];
 
-		fd = open(av[2], O_RDONLY);
-		//d = ft_read(fd, ft_buff, 10);
-		ft_buff[d] = '\0';
-		printf("\nfd = %d | (%d) = \033[1;32mft_read\033[0m(fd, buff, 10)\n|%s|\n\n",fd , d, ft_buff);
+		atoi_av2 = atoi(av[2]);
+		printf("\n------------------- fd = open() ------------------");
+		ft_fd = open("ft_write_example.txt", O_RDONLY);
+		ft_ret = ft_read(ft_fd, ft_buf, atoi_av2);
+		ft_buf[ft_ret] = '\0';
+		if (&__errno_location)
+			printf("\n\033[2;37merrno: %d|%s\033[0m", errno, strerror(errno));
+		printf("\n\033[1;32mft_read\033[0m(%d, \"%s\", %s) = %zu (number of bytes written) AND buf = \"%s\"\n\n", ft_fd, ft_buf, av[2], ft_ret, ft_buf);
+		close(ft_fd);
 
-		fd = open(av[2], O_RDONLY);
-		d = read(fd, buff, 10);
-		buff[d] = '\0';
-		printf("fd = %d | (%d) =    \033[1;32mread\033[0m(fd, buff, 10)\n|%s|\n\n",fd , d, buff);
-	}*/
+		fd = open("write_example.txt", O_RDONLY);
+		ret = read(fd, buf, atoi_av2);
+		buf[ret] = '\0';
+		if (&__errno_location)
+			printf("\033[2;37merrno: %d|%s\033[0m", errno, strerror(errno));
+		printf("\n   \033[1;32mread\033[0m(%d, \"%s\", %s) = %zu (number of bytes written) AND buf = \"%s\"\n\n", fd, buf, av[2], ret, buf);
+		close(fd);
+	}
 	else
 	{
 		printf("\n\033[37mUsage: ./libasm \033[32m[Function] \033[37m[Function arg1] [Function arg2 if needed] ...\n\n\033[0m");
@@ -115,8 +155,7 @@ int main(int ac, char **av)
 		// ft_write(int fd, const void *buf, size_t count);
 		printf("       ./libasm \033[32m write \033[37m    [buffer]\n");
 		// ft_read(int fd, void *buf, size_t count);
-		printf("       ./libasm \033[32m read \033[37m     [buffer]        [length]\n\n");
+		printf("       ./libasm \033[32m read \033[37m     [length]\n\n");
 	}
 	return 0;
-	//CHECK OTHER MAINS
 }

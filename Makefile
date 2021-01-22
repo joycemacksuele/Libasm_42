@@ -6,7 +6,7 @@
 #    By: user42 <jfreitas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/18 16:15:55 by user42            #+#    #+#              #
-#    Updated: 2021/01/21 23:32:21 by user42           ###   ########.fr        #
+#    Updated: 2021/01/22 02:26:57 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRCS = 	srcs/ft_strlen.s \
 		srcs/ft_strcmp.s \
 		srcs/ft_strdup.s \
 		srcs/ft_write.s \
-#		srcs/ft_read.s
+		srcs/ft_read.s
 
 #OBJS = $(subst .s,.o,$(SRCS))
 OBJS = ${SRCS:%.s=%.o}
@@ -67,7 +67,6 @@ fclean: clean
 	@echo "\033[0;32m"
 	rm -f $(NAME)
 	@echo "\033[0m"
-	rm ./srcs/*.o
 
 re: fclean all
 

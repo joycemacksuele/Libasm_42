@@ -1,12 +1,12 @@
 ; **************************************************************************** ;
 ;                                                                              ;
 ;                                                         :::      ::::::::    ;
-;    ft_write.s                                         :+:      :+:    :+:    ;
+;    ft_read.s                                          :+:      :+:    :+:    ;
 ;                                                     +:+ +:+         +:+      ;
-;    By: jfreitas <jfreitas@student.42.fr>          +#+  +:+       +#+         ;
+;    By: user42 <jfreitas@student.42.fr>            +#+  +:+       +#+         ;
 ;                                                 +#+#+#+#+#+   +#+            ;
-;    Created: 2021/01/20 00:53:22 by jfreitas          #+#    #+#              ;
-;    Updated: 2021/01/21 15:15:36 by user42           ###   ########.fr        ;
+;    Created: 2021/01/21 23:57:56 by user42            #+#    #+#              ;
+;    Updated: 2021/01/21 23:58:11 by user42           ###   ########.fr        ;
 ;                                                                              ;
 ; **************************************************************************** ;
 
@@ -22,11 +22,11 @@
 ; "When the contents of a segment register is pushed onto 64-bit stack, the pointer is automatically aligned to 64 bits"
 ; Ubuntu: add wrt ..plt to call _errno_location to make its position independent
 section .text
-	global ft_write						; Defining global Label
+	global ft_read						; Defining global Label
 	extern __errno_location				; int *__errno_location(void);
 
-ft_write:
-	mov rax, 1							; Sycall number for write on Linux
+ft_read:
+	mov rax, 0							; Sycall number for read on Linux
 	syscall								; Calling the operating system
 	cmp rax, 0							; Compare rax(return of read) to 0
 	jl exit_err							; Jump if rax is less than 0

@@ -6,7 +6,7 @@
 /*   By: user42 <jfreitas@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 16:25:36 by user42            #+#    #+#             */
-/*   Updated: 2021/01/23 00:01:13 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/23 22:56:27 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 
 int main(int ac, char **av)
 {
-//	if (ac == 3 && strcmp(av[1], "strlen") == 0)
 	if (ac == 3 && ft_strcmp(av[1], "strlen") == 0)
 	{
 		printf("\n\033[1;32mft_strlen\033[0m(\"%s\") = %zu\n\n", av[2], ft_strlen(av[2]));
 		printf("   \033[1;32mstrlen\033[0m(\"%s\") = %zu\n\n", av[2], strlen(av[2]));
 	}
-//	else if (ac == 3 && strcmp(av[1], "strcpy") == 0)
+/* ************************************************************************** */
 	else if (ac == 3 && ft_strcmp(av[1], "strcpy") == 0)
 	{
-		char	dest1[10];
-		char	dest2[10];
+		char	dest1[10000];
+		char	dest2[10000];
 		char	*argv2;
 
 		argv2 = av[2];
@@ -42,23 +41,20 @@ int main(int ac, char **av)
 		printf("\n\033[1;32mft_strcmp\033[0m(\"%s\", \"%s\") = %d\n\n", av[2], av[3], ft_strcmp(av[2],av[3]));
 		printf("   \033[1;32mstrcmp\033[0m(\"%s\", \"%s\") = %d\n\n", av[2], av[3], strcmp(argv2,argv3));
 	}
-//	else if (ac == 3 && strcmp(av[1], "strdup") == 0)
+/* ************************************************************************** */
 	else if (ac == 3 && ft_strcmp(av[1], "strdup") == 0)
 	{
 		char	*dup;
 		char	*ft_dup;
-//		char	*test;
 
-//		test = "";
 		ft_dup = ft_strdup(av[2]);
 		dup = strdup(av[2]);
-//		dup = ft_strdup("");
 		printf("\n\033[1;32mft_strdup\033[0m(\"%s\") = %s\n\n", av[2], ft_dup);
 		printf("   \033[1;32mstrdup\033[0m(\"%s\") = %s\n\n", av[2], dup);
 		free(ft_dup);
 		free(dup);
 	}
-//	else if (ac == 4 && strcmp(av[1], "write") == 0)
+/* ************************************************************************** */
 	else if (ac == 3 && ft_strcmp(av[1], "write") == 0)
 	{
 		int		ft_fd;
@@ -66,7 +62,7 @@ int main(int ac, char **av)
 		size_t	av2_len;
 		ssize_t	ft_ret;
 		ssize_t	ret;
-		char	buf[1000];
+		char	buf[10000];
 
 		av2_len = ft_strlen(av[2]);
 		printf("\n------------------- fd = open() ------------------");
@@ -88,12 +84,6 @@ int main(int ac, char **av)
 		printf("\033[2;37mopen write_example.txt to see that \"%s\" was written there\n\033[0m", av[2]);
 		close(fd);
 
-		//printf("\n---------------------- fd = 0 --------------------");
-		//fd0 = stdin which is not a fd open for writing.
-
-		//printf("\n---------------------- fd = 2 --------------------");
-		//fd2 = stderr and write will write to the standard error
-
 		printf("\n---------------------- fd = 1 --------------------");
 		//fd1 = stdout and write will write on the standard output (on terminal)
 		printf("\ninput a string to be written to the stdout fd: ");
@@ -110,7 +100,7 @@ int main(int ac, char **av)
 		printf(" ->    \033[1;32mwrite\033[0m(%d, \"%s\", %zu) = %zu (number of bytes written)\n", 1, buf, av2_len, ret);
 
 	}
-//	else if (ac == 4 && strcmp(av[1], "read") == 0)
+/* ************************************************************************** */
 	else if (ac == 3 && ft_strcmp(av[1], "read") == 0)
 	{
 		int		ft_fd;
@@ -118,8 +108,8 @@ int main(int ac, char **av)
 		int		atoi_av2;
 		ssize_t	ft_ret;
 		ssize_t	ret;
-		char	ft_buf[100];
-		char	buf[100];
+		char	ft_buf[10000];
+		char	buf[10000];
 
 		atoi_av2 = atoi(av[2]);
 		printf("\n------------------- fd = open() ------------------");
@@ -139,14 +129,13 @@ int main(int ac, char **av)
 		printf("\n   \033[1;32mread\033[0m(%d, \"%s\", %s) = %zu (number of bytes written) AND buf = \"%s\"\n\n", fd, buf, av[2], ret, buf);
 		close(fd);
 	}
+/* ************************************************************************** */
 	else
 	{
 		printf("\n\033[37mUsage: ./libasm \033[32m[Function] \033[37m[Function arg1] [Function arg2 if needed] ...\n\n\033[0m");
-	//	printf("\033[1;37m");
 		// ft_strlen(const char *s);
 		printf("       ./libasm \033[32m strlen \033[37m   [string]\n");
 		// ft_strcpy(char *dest, const char *src);
-//		printf("       ./libasm \033[32m strcpy \033[37m   [dest_string]   [src_string]\n");
 		printf("       ./libasm \033[32m strcpy \033[37m   [src_string]\n");
 		// ft_strcmp(const char *s1, const char *s2);
 		printf("       ./libasm \033[32m strcmp \033[37m   [string1]       [string2]\n");

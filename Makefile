@@ -6,7 +6,7 @@
 #    By: user42 <jfreitas@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/18 16:15:55 by user42            #+#    #+#              #
-#    Updated: 2021/01/22 02:26:57 by user42           ###   ########.fr        #
+#    Updated: 2021/01/23 03:43:56 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,17 +27,16 @@ SRCS = 	srcs/ft_strlen.s \
 		srcs/ft_write.s \
 		srcs/ft_read.s
 
-#OBJS = $(subst .s,.o,$(SRCS))
 OBJS = ${SRCS:%.s=%.o}
 
 all: $(NAME)
-	@mkdir objs
+	@mkdir -p ./objs
 	@mv ./srcs/*.o ./objs/
 
 %.o:%.s
 	@echo -n "\n\033[1;33mAssembling..."
 	@echo "\033[0;32m"
-	nasm $(NASM_FLAG) $^ -o $@
+	nasm $(NASM_FLAG) $^
 
 $(NAME): $(OBJS)
 	@echo -n "\n\033[1;33mCreating libasm library..."

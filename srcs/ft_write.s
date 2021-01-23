@@ -15,12 +15,12 @@
 ; rdi = fd
 ; rsi = buf
 ; rdx = count
-; rbx = Preserved register. Don't use it without saving it (and pop after)
 ; rax = system call number and syscall's return  (return is negative for error)
 ; locate unistd_64.h to see the number for the syscall
 ; rcx = return address of syscall (an unsigned integer)
 ; "When the contents of a segment register is pushed onto 64-bit stack, the pointer is automatically aligned to 64 bits"
 ; Ubuntu: add wrt ..plt to call _errno_location to make its position independent
+; to be able to compile with gcc
 section .text
 	global ft_write						; Defining global Label
 	extern __errno_location				; int *__errno_location(void);
@@ -33,11 +33,9 @@ ft_write:
 	ret
 
 exit_err:
-	mov	rbx, rax						; Move return value of rax/read() to rbx
-	push rbx							; push rbx to stack
+	mov	r8, rax							; Move return value of rax/read() to r8
 	call __errno_location wrt ..plt		; Ret = (the address of errno = rax)
-	neg rbx								; Negate the return value of read()
-	pop rbx								; pop rbx from the stack
-	mov qword[rax], rbx					; Move rbx/open ret to rax/errno address
+	neg r8								; Negate the return value of read()
+	mov qword[rax], r8					; Move r8/open ret to rax/errno address
 	mov rax, -1							; Move -1 error to rax
 	ret

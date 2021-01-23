@@ -13,6 +13,7 @@
 ; char	*ft_strdup(const char *s);
 ;
 ; rdi = s
+; rbx = buffer for rdi/s
 ; rax = return value (not changing it for safety)
 ; malloc()functions returns a pointer to the allocated memory
 ; "When the contents of a segment register is pushed onto 64-bit stack, the pointer is automatically aligned to 64 bits (as with a stack that has a 32- bit width)."
@@ -23,20 +24,23 @@ section .text
 	extern malloc				; void *malloc(size_t size);
 
 ft_strdup:
-	push rdi					; Store rdi/s (aligning to 64bits on the stack)
-	call ft_strlen				; Func's arg is rid/s. Re turn's stored in rax
+	xor rax, rax				; Changes rax to 0
+	xor rbx, rbx				; Changes rbx to 0
+	cmp rdi, 0					; Compare rdi/s to 0
+	je exit_err					; Jump if rdi/s is equal to 0
+	call ft_strlen				; Func's arg is rid/s. Return is stored in rax
 	inc rax						; rax (length) + 1 (for NULL termination)
-	mov rdi, rax				; Move rax/length back to rdi/s to call malloc
+	mov rbx, rdi				; Move rdi/s to buffer rbx
+	mov rdi, rax				; Move rax/length to rdi to call malloc
 	call malloc					; Call malloc with rdi/s as it's arg
 ; After malloc: original string is on stack, newly allocated string is in rax
-	cmp rax, 0x00				; Check if malloc returned NULL or rdi was 0
+	cmp rax, 0					; Check if malloc returned NULL or rdi was 0
 	je exit_err					; Jump to exit_err if rax == 0
-	mov rdi, rax				; Move return of malloc (ptr to address) to rdi
-	pop rsi						; Restoring rsi to be the second arg of strcpy
+	mov rdi, rax				; Move malloc ret (ptr to address) to rdi
+	mov rsi, rbx				; Move buffer/rbx(s) to rsi(strcpy 2nd arg)
 	call ft_strcpy				; Call strcpy with ret of malloc and rsi as args
-	ret							; return rax (ret of strcpy - ptr to dest)
+	ret							; return rax (ret of strcpy -> ptr to dest)
 
 exit_err:
 	mov rax, 0					; Don't forget to return NULL (move 0 to rax),
-	pop rdi						; and pop what have been pushed at the beginning
 	ret							; to not corrupt the stack
